@@ -1,0 +1,1 @@
+{"version":3,"file":"typography.component.js","sourceRoot":"","sources":["typography.component.ts"],"names":[],"mappings":";;;;;;;;;;AAAA,qBAAkC,eAAe,CAAC,CAAA;AAQlD;IAEE;IAAgB,CAAC;IAEjB,sCAAQ,GAAR;IACA,CAAC;IAXH;QAAC,gBAAS,CAAC;YAET,QAAQ,EAAE,eAAe;YACzB,WAAW,EAAE,2BAA2B;YACxC,SAAS,EAAE,CAAC,0BAA0B,CAAC;SACxC,CAAC;;2BAAA;IAQF,0BAAC;AAAD,CAAC,AAPD,IAOC;AAPY,2BAAmB,sBAO/B,CAAA"}

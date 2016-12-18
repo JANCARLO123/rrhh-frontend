@@ -1,0 +1,138 @@
+<div id="content">
+
+	<simple-notifications [options]="options"></simple-notifications>
+	<div class="row">
+		<sa-big-breadcrumbs [items]="['Solicitar Horas Extras']" icon="group"
+							class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+	</div>
+
+
+	<sa-widgets-grid>
+		<!-- row -->
+
+		<div class="row">
+
+			<!-- NEW WIDGET START -->
+			<div class="col-sm-12 col-md-12 col-lg-12">
+
+				<!-- Widget ID (each widget will need unique ID)-->
+				<sa-widget [colorbutton]="false" [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false"
+						   [sortable]="false">
+					<!-- widget div-->
+					<div>
+
+						<!-- widget content -->
+						<div class="widget-body">
+
+							<div class="well well-sm well-light">
+
+								<div class="padding-10">
+
+									<div>
+										<fieldset>
+											<legend>Datos</legend>
+
+											<div class="smart-form">
+
+												<div class="row">
+
+													<section class="col col-md-3">
+														<label>Jefe Inmediato</label>
+														<label class="input state-disabled">
+															<input type="text" [(ngModel)]="historiaLaboralActual.jefeInmediato" disabled="disabled"/>
+														</label>
+
+													</section>
+													<section class="col col-md-2" >
+														<label>Fecha</label>
+														<label class="input">
+															<i class="icon-append fa fa-calendar"></i>
+															<input type="text" name="fecha" id="fecha" saUiDatepicker date-format="dd/MM/yy" 
+															placeholder="Seleccionar una Fecha" 
+															[(ngModel)]="horasExtra.fecha" (change)="onChangeFecha($event)" />
+														</label>
+													</section>
+													
+												</div>
+
+												<div class="row">
+
+													<section class="col col-md-2">
+														<label>Hora de Salida Solicitado<span style="color: red">*</span></label>
+														<label class="input">
+															<i class="icon-append fa fa-clock-o"></i>
+															<input type="text" name="horaSalidaSolicitado" id="horaSalidaSolicitado" 
+																[(ngModel)]="horasExtra.horaSalidaSolicitado" 
+																smartClockpicker data-autoclose="true" (blur)="onChangeHoraSalidaSolicitado($event.target.value)" />
+														</label>
+													</section>
+													<section class="col col-md-4">
+														<label>Motivo<span style="color: red">*</span></label>
+														<label class="input">
+															<input type="text" name="motivo" id="motivo" (blur)="onChangeMotivo($event.target.value)"
+															[(ngModel)]="horasExtra.motivo" />
+														</label>
+													</section>
+													
+												</div>
+
+											</div>
+										</fieldset>
+										<fieldset>
+											<legend>Información Adicional</legend>
+											<div class="smart-form">
+
+												<div class="row">
+
+													<section class="col col-md-2">
+														<label>Hora de Salida</label>
+														<label class="input">
+															<input type="text" name="horaSalidaHorario" id="horaSalidaHorario" [(ngModel)]="horasExtra.horaSalidaHorario" />
+														</label>
+													</section>
+
+													<section class="col col-md-2">
+														<label>Horas Semanales Pendientes</label>
+														<label class="input">
+															<input type="text" name="horasSemanalesPendientes" id="horasSemanalesPendientes" [(ngModel)]="horasExtra.horasSemanalesPendientes" readonly="readonly"/>
+														</label>
+													</section>
+
+												</div>
+
+												<div class="row">
+
+													<section class="col col-md-2">
+														<label>Total de Horas Extras</label>
+														<label class="input">
+															<input type="text" name="horas" id="horas" [(ngModel)]="horasExtra.horas" readonly="readonly"/>
+														</label>
+													</section>
+
+												</div>
+
+
+											</div>
+										</fieldset>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="smart-form">
+						<div class="row">
+							<section class="col col-md-12 text-right">
+								<a (click)="onRegistrarHorasExtraEmpleado()" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> Guardar</a>
+							</section>
+						</div>
+					</div>
+				</sa-widget>
+			</div>
+			<!-- WIDGET END -->
+		</div>
+
+
+	</sa-widgets-grid>
+
+</div>

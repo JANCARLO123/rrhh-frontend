@@ -1,0 +1,146 @@
+<div id="content">
+
+<div class="row">
+	<sa-big-breadcrumbs [items]="['Personal', 'Editar Cargo']" icon="group" 
+    class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+	<!-- <sa-stats></sa-stats>  -->
+</div>
+  
+  <sa-widgets-grid>
+  <div class="row">
+    <div class="col-12">
+    <sa-widget [colorbutton]="false" [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false"
+                   [sortable]="false">
+             
+      <div class="col-md-6 text-right">   
+	      <a (click)="goBack()" class="btn btn-default btn-lg"><i class="fa fa-arrow-circle-left"></i> Regresar</a>
+          <a (click)="onGuardarCargo()" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> Guardar</a>
+	    </div>
+    <div>
+
+        <!-- widget content -->
+    <div id="smart-form-register" class="smart-form" >
+
+    <fieldset>
+        <h5>Datos</h5>
+    </fieldset>
+    <fieldset>
+
+        <h5>Puesto Laboral</h5>
+        <hr>
+        <div class="row">
+            <section class="col col-3">
+                <h6>Fecha Inicio</h6>
+                
+                    <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                    <input type="text" [(ngModel)]="historiaLaboral.desdeFecha" (change)="onChangeIniDate($event)"
+                        saUiDatepicker date-format="dd/mm/yy" >
+                    </label>
+            </section>
+
+            <section class="col col-3">
+                <h6>Fecha Fin</h6>
+                
+                    <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                    <input type="text" [(ngModel)]="historiaLaboral.hastaFecha" (change)="onChangeFinDate($event)"
+                            saUiDatepicker date-format="dd/mm/yy" >
+                    </label>
+            </section>
+        </div>
+
+        <div class="row">
+            
+            <section class="col col-3">
+                <h5>Unidad de Negocio</h5>
+                <label class="select">
+                    <select class="form-control" id="undNegocio" >
+                        <option *ngIf="historiaLaboral" [value]="historiaLaboral.unidadNegocio" 
+                                    [label]="historiaLaboral.unidadNegocio" ></option>
+                    </select> <i></i> 
+                </label>
+            </section>
+            <section class="col col-3">
+                <h5>Departamento</h5>
+                <label class="select">
+                    <select class="form-control" id="departamentoArea" >
+                        <option *ngIf="historiaLaboral" [value]="historiaLaboral.departamentoArea" 
+                                    [label]="historiaLaboral.departamentoArea" ></option>
+                    </select> <i></i> 
+                </label>
+            </section>
+            <section class="col col-3">
+                <h5>Proyecto</h5>
+                <label class="select">
+                    <select class="form-control" id="proyecto" >
+                        <option *ngIf="historiaLaboral" [value]="historiaLaboral.proyecto" 
+                                    [label]="historiaLaboral.proyecto" ></option>
+                    </select> <i></i> 
+                </label>
+            </section>
+        </div>
+
+        <div class="row">
+            <section class="col col-3">
+                <h5>Cargo</h5>
+                <label class="select">
+                    <select class="form-control" id="cargo" >
+                        <option *ngIf="historiaLaboral" [value]="historiaLaboral.cargo" 
+                                    [label]="historiaLaboral.cargo" ></option>
+                    </select> <i></i> 
+                </label>
+            </section>
+        </div>
+
+    <section>
+        <label class="label">Descripcion</label>
+        <div *ngIf="historiaLaboral">
+            <label class="textarea">
+                <textarea rows="3" class="custom-scroll" [(ngModel)]="historiaLaboral.descripcion">
+
+                </textarea>
+            </label>
+        </div>
+
+        <!-- <div class="note">
+            <strong>Note:</strong> Height of the textarea depends on the rows attribute.
+        </div> -->
+    </section>
+
+    <h5>Salario</h5>
+        <hr>
+        <div class="row">
+            <section class="col col-3">
+                    <h6>Monto</h6>
+                    <div *ngIf="historiaLaboral">
+                        <label class="input" >
+                            <input type="text" name="name" [(ngModel)]="historiaLaboral.salario">
+                        </label>
+                    </div>
+                       
+            </section>
+
+            <section class="col col-3">
+                <h5>Moneda<span style="color: red">*</span></h5>
+                
+                <kendo-dropdownlist
+                    [data]="monedas"
+                    [textField]="'nombre'"
+                    [valuePrimitive] = "true"
+                    [valueField]="'idMoneda'" style="width: 100%;" [(ngModel)]="historiaLaboral.idMoneda"
+                >
+                </kendo-dropdownlist>
+            </section>
+        </div>
+    </fieldset>
+    
+            </div>
+            <!-- end widget content -->		
+      
+    </div>
+
+    </sa-widget>
+        <!-- end widget -->
+    </div>
+  </div>
+ </sa-widgets-grid>
+</div>

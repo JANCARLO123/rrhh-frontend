@@ -1,0 +1,169 @@
+<div id="content">
+	<div class="row">
+		<sa-big-breadcrumbs [items]="['Agendar Vacaciones']" icon="group"
+							class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+	</div>
+
+
+	<sa-widgets-grid>
+		<!-- row -->
+
+		<div class="row">
+
+			<!-- NEW WIDGET START -->
+			<div class="col-12">
+
+				<!-- Widget ID (each widget will need unique ID)-->
+				<sa-widget [colorbutton]="false" [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false"
+						   [sortable]="false">
+
+					<div class="smart-form">
+						<div class="row">
+							<section class="col col-md-12 text-right">
+								
+								<a (click)="onRegresarBusquedaVacaciones()" class="btn btn-default btn-lg"><i class="fa fa-arrow-circle-left"></i> Regresar</a>
+								<!-- <a (click)="onActualizarVacacionEmpleado()" class="btn btn-primary btn-lg" *ngIf="!isEnviado"><i class="fa  fa-sign-out"></i> Guardar</a>
+								<a (click)="onEnviarVacacionEmpleado()" class="btn btn-primary btn-lg" *ngIf="!isEnviado"><i class="fa fa-pencil"></i> Enviar</a>
+								<a (click)="onEliminarVacacionEmpleado()" class="btn btn-primary btn-lg" *ngIf="!isEnviado"><i class="fa fa-times"></i> Eliminar</a>
+								-->
+								<a (click)="onDevolverVacacionEmpleado()" class="btn btn-primary btn-lg" *ngIf="localStorageValue.mostrarBoton === true"><i class="fa  fa-sign-out"></i> Devolver</a>
+								<a (click)="onAprobarVacacionEmpleado()" class="btn btn-primary btn-lg" *ngIf="localStorageValue.mostrarBoton === true"><i class="fa fa-check"></i> Aprobar</a>
+								<a (click)="onRechazarVacacionEmpleado()" class="btn btn-primary btn-lg" *ngIf="localStorageValue.mostrarBoton === true"><i class="fa fa-times"></i> Rechazar</a>
+							</section>
+						</div>
+					</div>
+
+					<!-- widget div-->
+					<div>
+
+						<!-- widget content -->
+						<div class="widget-body">
+
+							<div class="well well-sm well-light">
+
+								<div class="padding-10">
+
+									<div>
+										<fieldset>
+											<legend>Datos</legend>
+
+											<div class="smart-form">
+
+												<div class="row">
+
+													<section class="col col-md-4">
+														<label>Jefe Inmediato</label>
+														<label class="input state-disabled">
+															<input type="text" [(ngModel)]="historiaLaboralActual.jefeInmediato" [disabled]="localStorageValue.typeRead === true"/>
+														</label>
+
+													</section>
+													<section class="col col-md-2">
+														<label>Periodo</label>
+														<label class="input state-disabled">
+															<input type="text" [(ngModel)]="adminVacacionesPeriodo.periodo" [disabled]="localStorageValue.typeRead === true" />
+														</label>
+
+													</section>
+                                                    <section class="col col-md-2">
+														<label>Dias Disponibles</label>
+														<label class="input state-disabled">
+															<input type="text" name="diasDisponibles" id="diasDisponibles" [(ngModel)]="diasDisponiblesVacacion.diasVacacionesDisponibles"
+																   [disabled]="localStorageValue.typeRead === true" />
+														</label>
+													</section>
+												</div>
+
+												<div class="row">
+
+													<section class="col col-md-4" *ngIf="isJefeEnviado" >
+														<label>Desde<span style="color: red">*</span></label>
+														<label class="input">
+															<i class="icon-append fa fa-calendar"></i>
+															<input type="text" name="fechaInicio" id="fechaInicio" saUiDatepicker date-format="dd/MM/yy" 
+															placeholder="Seleccionar una Fecha" [disabled]="localStorageValue.typeRead === true"
+															[(ngModel)]="adminVacaciones.fechaInicio" (change)="onChangeFechaInicio($event)" readonly="readonly"/>
+														</label>
+													</section>
+
+													<section class="col col-md-2">
+														<label>Dias Calendarios</label>
+														<label class="input">
+															<i class="icon-append fa fa-clock-o"></i>
+															<input type="text" name="diasCalendarios" id="diasCalendarios" [(ngModel)]="adminVacaciones.diasCalendarios"
+																   readonly="readonly" [disabled]="localStorageValue.typeRead === true"/>
+														</label>
+													</section>
+													<section class="col col-3">
+														<label>Estado</label>
+														<label class="input state-disabled">
+															<i class="icon-append fa fa-chevron-down"></i>
+															<input type="text" name="estado" id="estado" [(ngModel)]="adminVacaciones.estadoString" [disabled]="localStorageValue.typeRead === true" />
+														</label>
+													</section>
+													
+												</div>
+
+												<div class="row">
+
+													<section class="col col-md-4" *ngIf="isJefeEnviado">
+														<label>Hasta<span style="color: red">*</span></label>
+														<label class="input">
+															<i class="icon-append fa fa-calendar"></i>
+															<input type="text" name="fechaFin" id="fechaFin" saUiDatepicker date-format="dd/MM/yy" placeholder="Seleccionar una Fecha"
+																   [(ngModel)]="adminVacaciones.fechaFin" (change)="onChangeFechaFin($event)" readonly="readonly" [disabled]="localStorageValue.typeRead === true" />
+														</label>
+													</section>
+
+													<section class="col col-md-2">
+														<label>Dias Habiles</label>
+														<label class="input">
+															<i class="icon-append fa fa-clock-o"></i>
+															<input type="text" id="diasHabiles" [(ngModel)]="adminVacaciones.diasHabiles" readonly="readonly" [disabled]="localStorageValue.typeRead === true" />
+														</label>
+													</section>
+													
+												</div>
+
+												<div class="row" *ngIf="isEnviado">
+													<section class="col col-md-6">
+														<label>Comentario del Jefe Inmediato</label>
+														<label class="input">
+															<input type="text" name="comentarioJefeInmediato" id="comentarioJefeInmediato" [(ngModel)]="adminVacaciones.comentarioJefeInmediato"
+																   [disabled]="localStorageValue.typeRead === true" />
+														</label>
+													</section>
+												</div>
+
+											</div>
+										</fieldset>
+
+									</div>
+
+								</div>
+
+							</div>
+
+							<!-- Dialog-->
+							<div id="dialog-message" title="Mensaje">
+								<!-- dialog header // removing on compile-->
+								<p>
+									{{mensaje}}
+								</p>
+
+							</div>
+							<!-- End dialog -->
+
+
+
+						</div>
+					</div>
+				</sa-widget>
+			</div>
+			<!-- WIDGET END -->
+		</div>
+
+
+	</sa-widgets-grid>
+
+</div>

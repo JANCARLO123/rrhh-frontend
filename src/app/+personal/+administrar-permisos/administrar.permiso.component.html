@@ -1,0 +1,208 @@
+<div id="content">
+	<div class="row">
+		<sa-big-breadcrumbs [items]="['Permisos']" icon="group"
+							class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+	</div>
+
+
+	<sa-widgets-grid>
+		<!-- row -->
+
+		<div class="row">
+
+			<h2 class="row-seperator-header"> Permisos </h2>
+
+			<!-- NEW WIDGET START -->
+			<div class="col-12">
+
+				<!-- Widget ID (each widget will need unique ID)-->
+				<sa-widget [colorbutton]="false" [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false"
+						   [sortable]="false">
+
+
+					<div class="col-md-6 text-right">
+						<a (click)="onRegresarBusquedaEmpleado()" class="btn btn-default btn-lg"><i class="fa fa-arrow-circle-left"></i> Regresar</a>
+						<!--<a (click)="onActualizarPermisoEmpleado()" class="btn btn-primary btn-lg" *ngIf="mostrarBoton === true || mostrarBotonJEFE === true"><i class="fa  fa-sign-out"></i> Guardar</a>
+						<a (click)="onEnviarPermisoEmpleado()" class="btn btn-primary btn-lg" *ngIf="!isEnviado"><i class="fa fa-pencil"></i> Enviar</a>
+						<a (click)="onEliminarPermisoEmpleado()" class="btn btn-primary btn-lg" *ngIf="!isEnviado"><i class="fa fa-times"></i> Eliminar</a> -->
+
+						<a (click)="onDevolverPermisoEmpleado()" class="btn btn-primary btn-lg" *ngIf="localStorageValue.mostrarBotonGeren === true"><i class="fa  fa-sign-out"></i> Devolver</a>
+						<a (click)="onEnviarPermisoEmpleado()" class="btn btn-primary btn-lg" *ngIf="localStorageValue.mostrarBotonGeren === true"><i class="fa fa-check"></i> Aprobar</a>
+						<a (click)="onRechazarPermisoEmpleado()" class="btn btn-primary btn-lg" *ngIf="localStorageValue.mostrarBotonGeren === true"><i class="fa fa-times"></i> Rechazar</a>
+
+					</div>
+
+					<!-- widget div-->
+					<div>
+
+						<!-- widget content -->
+						<div class="widget-body">
+
+							<div class="well well-sm well-light">
+
+								<div class="padding-10">
+
+								<div>
+									<fieldset>
+										<legend>Datos</legend>
+
+										<div class="smart-form">
+
+											<div class="row">
+
+												<section class="col col-md-4">
+													<label>Jefe Inmediato</label>
+													<label class="input">
+														<input type="text" [(ngModel)]="historiaLaboralActual.jefeInmediato" [disabled]="localStorageValue.typeRead === true"/>
+													</label>
+
+												</section>
+												<section class="col col-md-2">
+													<label>Periodo</label>
+													<label class="input">
+														<input type="text" [(ngModel)]="periodoEmpleadoActual.periodo" [disabled]="localStorageValue.typeRead === true" />
+													</label>
+
+												</section>
+											</div>
+
+											<div class="row">
+
+
+												<section class="col col-md-4">
+													<label>Motivo</label>
+													<label class="input">
+														<kendo-dropdownlist [data]="motivos" id="motivo" [textField]="'nombre'" 
+														[valueField]="'codigo'" [defaultItem]="defaultItem" [(ngModel)]="permisos.motivo"  
+														[valuePrimitive]="true" style="width: 100%;"  (selectionChange)="cargarMotivo($event)" >
+														</kendo-dropdownlist>
+													</label>
+												</section>
+												<section class="col col-md-8">
+													<label>Razon</label>
+													<label class="input">
+														<input type="text" [(ngModel)]="permisos.razon" [disabled]="localStorageValue.typeRead === true">
+													</label>
+												</section>
+											</div>
+
+											<div class="row">
+											
+												<section class="col col-md-4">
+														<label>Fecha del Permiso<span style="color: red">*</span></label>
+														<label class="input">
+															<i class="icon-append fa fa-calendar"></i>
+															<input type="text" name="fechaPermiso" id="fechaPermiso" saUiDatepicker date-format="dd/MM/yy" 
+															placeholder="Seleccionar una Fecha" 
+															[(ngModel)]="permisos.fecha" (change)="onChangeFecha($event)" readonly="readonly" [disabled]="localStorageValue.typeRead === true"/>
+														</label>
+												</section>
+
+												<section class="col col-md-2">
+														<label>Desde<span style="color: red">*</span></label>
+														<label class="input">
+															<i class="icon-append fa fa-clock-o"></i>
+															<input type="text" name="horaDesde" id="horaDesde" [(ngModel)]="permisos.horaInicio" 
+															smartClockpicker data-autoclose="true" (change)="onChangeHoraInicio($event)" readonly="readonly" [disabled]="localStorageValue.typeRead === true"/>
+														</label>
+													</section>
+													<section class="col col-md-2">
+														<label>Hasta<span style="color: red">*</span></label>
+														<label class="input">
+															<i class="icon-append fa fa-clock-o"></i>
+															<input type="text" name="horaHasta" id="horaHasta" [(ngModel)]="permisos.horaFin" 
+															smartClockpicker data-autoclose="true" (change)="onChangeHoraFin($event)" readonly="readonly" [disabled]="localStorageValue.typeRead === true">
+														</label>
+												</section>
+											</div>
+
+											<div class="row" *ngIf="!isCompensarhoras">
+
+												<section class="col col-md-4">
+													<label>Fecha de Recuperacion<span style="color: red">*</span></label>
+														<label class="input">
+															<i class="icon-append fa fa-calendar"></i>
+															<input type="text" id="fechaRecuperacion" saUiDatepicker date-format="dd/MM/yy" 
+															placeholder="Seleccionar una Fecha" [(ngModel)]="permisos.fechaRecuperacion" 
+															(change)="onChangeFechaRecuperacion($event)" readonly="readonly" [disabled]="localStorageValue.typeRead === true"/>
+														</label>
+												</section>
+
+												<section class="col col-md-2">
+														<label>Desde<span style="color: red">*</span></label>
+														<label class="input">
+															<i class="icon-append fa fa-clock-o"></i>
+															<input type="text" id="horaDesdeRecuperacion" 
+															[(ngModel)]="permisos.horaInicioRecuperacion" 
+															smartClockpicker data-autoclose="true" 
+															(change)="onChangeHoraInicioRecuperacion($event)" readonly="readonly" [disabled]="localStorageValue.typeRead === true">
+														</label>
+												</section>
+												<section class="col col-md-2">
+														<label>Hasta<span style="color: red">*</span></label>
+														<label class="input">
+															<i class="icon-append fa fa-clock-o"></i>
+															<input type="text" id="horaHastaRecuperacion" 
+															[(ngModel)]="permisos.horaFinRecuperacion"
+															smartClockpicker data-autoclose="true" 
+															(change)="onChangeHoraFinRecuperacion($event)" readonly="readonly" [disabled]="localStorageValue.typeRead === true">
+														</label>
+												</section>
+											</div>
+											<div class="row" *ngIf="isCompensarhoras">
+
+													<section class="col col-md-4">
+														<label>Horas por Compensar</label>
+														<label class="input state-disabled">
+															<input type="text" [disabled]="localStorageValue.typeRead === true"/>
+														</label>
+													</section>
+
+											</div>
+
+											<div class="row">
+												<section class="col col-md-4">
+													<label>Estado</label>
+													<label class="input">
+														<input type="text" [(ngModel)]="permisos.estadoString" [disabled]="localStorageValue.typeRead === true">
+													</label>
+												</section>
+												<section class="col col-md-8" *ngIf="isJefeEnviado">
+													<label>Comentario Jefe Inmediato</label>
+													<label class="input">
+														<input type="text" [disabled]="localStorageValue.typeRead === true">
+													</label>
+
+												</section>
+											</div>
+										</div>
+									</fieldset>
+
+								</div>
+
+							</div>
+
+
+
+							</div>
+							<!-- Dialog-->
+							<div id="dialog-message" title="Mensaje">
+								<!-- dialog header // removing on compile-->
+								<p>
+									{{mensaje}}
+								</p>
+
+							</div>
+							<!-- End dialog -->
+						</div>
+					</div>
+				</sa-widget>
+			</div>
+			<!-- WIDGET END -->
+		</div>
+
+		<!-- end row -->
+
+	</sa-widgets-grid>
+
+</div>

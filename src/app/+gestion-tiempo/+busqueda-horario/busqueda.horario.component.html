@@ -1,0 +1,241 @@
+<div id="content">
+
+
+    <div class="row">
+        <sa-big-breadcrumbs [items]="['Horarios']" icon="group"
+                            class="col-xs-12 col-sm-7 col-md-7 col-lg-6"></sa-big-breadcrumbs>
+
+    </div>
+
+    <!-- widget grid -->
+    <sa-widgets-grid>
+
+        <!-- START ROW -->
+        <div class="row">
+
+
+
+            <!-- NEW COL START -->
+            <article class="col-sm-12 col-md-12 col-lg-12">
+
+
+                <sa-widget [colorbutton]="false" [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false"
+                           [sortable]="false" [deletebutton]="false" >
+
+
+                    <header>
+
+
+                        <h2>Filtros </h2>
+
+                    </header>
+
+                    <!-- widget div-->
+                    <div>
+
+                        <!-- widget content -->
+                        <div class="widget-body no-padding">
+
+
+                            <div class="smart-form" >
+
+                                <fieldset>
+
+                                    <div class="row">
+
+                                        <section class="col col-3">
+                                            <label>Tipo de horario</label>
+                                            <label class="input">
+                                                <kendo-dropdownlist
+                                                        [data]="tiposhorario"
+                                                        [textField]="'nombre'"
+                                                        [valueField]="'codigo'"
+                                                        [defaultItem]="defaultItemTablaGeneral"
+                                                        style="width: 100%;"
+                                                        [(ngModel)]="tipoHorarioSelect"
+                                                        [value]="tipoHorarioSelect"
+                                                >
+                                                </kendo-dropdownlist>
+                                            </label>
+                                        </section>
+
+
+                                        <section class="col col-3">
+                                            <label>Proyecto</label>
+                                            <label class="input">
+                                                <kendo-dropdownlist
+                                                        [data]="proyectos"
+                                                        [textField]="'nombre'"
+                                                        [valueField]="'idProyecto'"
+                                                        [defaultItem]="defaultItemProyecto"
+                                                        [(ngModel)]="proyectoSelect"
+                                                        [value] = "proyectoSelect"
+                                                        style="width: 100%;"
+
+                                                >
+                                                </kendo-dropdownlist>
+                                            </label>
+                                        </section>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <section class="col col-3">
+                                            <label>Estado</label>
+                                            <label class="input">
+                                                <kendo-dropdownlist
+                                                        [data]="estados"
+                                                        [defaultItem]="defaultItemTablaGeneral"
+                                                        [textField]="'nombre'"
+                                                        [valueField]="'codigo'"
+                                                        style="width: 100%;"
+                                                        [(ngModel)]="estadosSelect"
+                                                        [value]="estadosSelect">
+
+                                                </kendo-dropdownlist>
+
+                                            </label>
+                                        </section>
+
+                                        <section class="col col-3">
+                                            <label>Por defecto</label>
+                                            <label class="select">
+                                                <kendo-dropdownlist
+                                                        [data]="porDefecto"
+                                                        [defaultItem]="defaultItemPorDefecto"
+                                                        [textField]="'nombre'"
+                                                        [valueField]="'defecto'"
+                                                        style="width: 100%;"
+                                                        [(ngModel)]="porDefectoSelect"
+                                                        [value]="porDefectoSelect">
+
+                                                </kendo-dropdownlist>
+                                            </label>
+
+                                        </section>
+                                    </div>
+
+                                </fieldset>
+
+
+                                <footer>
+                                    <button type="submit" class="btn bg-color-orange txt-color-white" (click)="onSubmit()">Buscar</button>
+                                    <button type="button" class="btn btn-default" (click)="onLimpiar()">
+                                        Limpiar
+                                    </button>
+                                </footer>
+
+
+                            </div> <!-- end form -->
+
+
+                        </div>
+                        <!-- end widget content -->
+
+                    </div>
+
+                    <!-- end widget div -->
+
+
+                </sa-widget>
+
+                <!-- end widget -->
+
+
+            </article>
+            <!-- END COL -->
+
+        </div>
+
+        <!-- END ROW -->
+
+    </sa-widgets-grid>
+
+    <!-- widget grid -->
+    <sa-widgets-grid>
+
+        <!-- START ROW -->
+        <div class="row">
+
+            <alert *ngIf="noItems" type="info" dismissible="true">
+                <i class="fa-fw fa fa-info"></i>
+                <strong>Info!</strong> No hay información para exportar.
+            </alert>
+
+            <!-- NEW COL START -->
+            <article class="col-sm-12">
+
+                <sa-widget [colorbutton]="false" [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false"
+                           [sortable]="false" [deletebutton]="false" >
+
+                    <header>
+
+
+                        <h2>Resultados {{horarios.length}}</h2>
+
+                    </header>
+                    <div class="widget-body">
+
+                    <fieldset>
+                            <div class="col-12 text-right">
+
+                                <button (click)="onNew()" class="btn btn-primary"><i class="fa fa-plus"></i>
+                                    Agregar
+                                </button>
+                            </div>
+                    </fieldset>
+
+                    <fieldset>
+
+                        <div [ngBusy]="{busy: busy, minDuration:1000}"></div>
+                        <kendo-grid
+                                [data]="gridView"
+                                [pageSize]="pageSize"
+                                [skip]="skip"
+                                [pageable]="true"
+                                (pageChange)="pageChangeMarcaciones($event)"
+                        >
+
+
+                            <kendo-grid-column field="idHorario" title=" " [width]="40">
+                                <template kendoCellTemplate let-dataItem>
+                                    <div class="text-center">
+                                        <a href="javascript:void(0)" class="link" (click)="onEdit(dataItem)">
+                                            <span class="fa fa-pencil"></span></a>
+                                    </div>
+                                </template>
+                            </kendo-grid-column>
+
+                            <kendo-grid-column field="idHorario" title=" " [width]="40">
+                                <template kendoCellTemplate let-dataItem>
+                                    <div class="text-center">
+                                        <a href="javascript:void(0)" class="link" (click)="(null)">
+                                            <span class="fa fa-trash"></span></a>
+                                    </div>
+                                </template>
+                            </kendo-grid-column>
+
+                            <kendo-grid-column field="nombreTipoHorario" title="Tipo horario" [width]="150"></kendo-grid-column>
+                            <kendo-grid-column field="nombreProyecto" title="Proyecto" [width]="100"></kendo-grid-column>
+                            <kendo-grid-column field="nombre" title="Horario" [width]="100"></kendo-grid-column>
+                            <kendo-grid-column field="horasSemanal" title="Horas smanal" [width]="100"></kendo-grid-column>
+                            <kendo-grid-column field="diasSemana" title="Dias a la semana" [width]="100"></kendo-grid-column>
+                            <kendo-grid-column field="nombrePorDefecto" title="Por defecto" [width]="100"></kendo-grid-column>
+                            <kendo-grid-column field="nombreEstado" title="Estado" [width]="100"></kendo-grid-column>
+                        </kendo-grid>
+
+
+                    </fieldset>
+                    </div>
+                </sa-widget>
+
+            </article>
+            <!-- END COL -->
+
+        </div>
+
+
+
+    </sa-widgets-grid>
+</div>

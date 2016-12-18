@@ -1,0 +1,856 @@
+<div id="content">
+	<div class="row">
+		<sa-big-breadcrumbs [items]="['Ver Empleado',empleado.codigo+' - '+empleado.nombre+' '+empleado.apellidoPaterno]" icon="group"
+							class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+	</div>
+
+
+	<!-- widget grid -->
+
+	<sa-widgets-grid>
+		<!-- row -->
+
+		<div class="row">
+
+			<!-- NEW WIDGET START -->
+			<div class="col-12">
+
+				<!-- Widget ID (each widget will need unique ID)-->
+				<sa-widget [colorbutton]="false" [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false"
+						   [sortable]="false">
+
+					<div class="smart-form">
+						<div class="row">
+							<section class="col col-md-1">
+								<a (click)="onRegresarBusquedaEmpleado()" class="btn btn-default" style="padding:10px 12px;font-size:15px;line-height:1.4;border-radius:2px"><i class="fa fa-arrow-circle-left"></i> Regresar</a>
+							</section>
+
+							<section class="col col-md-11 text-right">
+								<a (click)="onIrDarBajaEmpleado()" class="btn btn-primary" style="padding:10px 12px;font-size:15px;line-height:1.4;border-radius:2px"><i class="fa  fa-sign-out"></i> Dar de Baja</a>
+								<a (click)="onIrHorarioEmpleado()" class="btn btn-primary" style="padding:10px 12px;font-size:15px;line-height:1.4;border-radius:2px"><i class="fa fa-pencil"></i> Horario</a>
+								<a (click)="onIrHistorialTrabajo()" class="btn btn-primary" style="padding:10px 12px;font-size:15px;line-height:1.4;border-radius:2px"><i class="fa fa-pencil"></i> Historial del Trabajo</a>
+								<a (click)="(null)" class="btn btn-primary" style="padding:10px 12px;font-size:15px;line-height:1.4;border-radius:2px"><i class="fa fa-pencil"></i> Licencias</a>
+								<a (click)="(null)" class="btn btn-primary" style="padding:10px 12px;font-size:15px;line-height:1.4;border-radius:2px"><i class="fa fa-pencil"></i> Gestionar Vacaciones</a>
+								<a (click)="onIrGestionarPermiso()" class="btn btn-primary" style="padding:10px 12px;font-size:15px;line-height:1.4;border-radius:2px"><i class="fa fa-pencil"></i> Gestionar Permisos</a>
+								<a (click)="onEdit()" class="btn btn-primary" style="padding:10px 12px;font-size:15px;line-height:1.4;border-radius:2px"><i class="fa fa-user"></i> Informacion Personal</a>
+							</section>
+						</div>
+					</div>
+
+
+					<!-- widget div-->
+					<div>
+
+						<!-- widget content -->
+						<div class="widget-body">
+
+							<div class="well well-sm well-light">
+								<div [saJquiAccordion]>
+									<div>
+										<h4>Informacion Personal</h4>
+
+										<div class="padding-10">
+
+											<div>
+												<fieldset>
+													<legend>Datos Principales</legend>
+
+													<div class="col-md-4">
+														<section class="col col-md-12">
+															<div id="imgLogo1Subido" style="width: 100%; height: 275px; background-size: contain; background-repeat: no-repeat; background-position: 50% 50%; border: groove;">
+															</div>
+														</section>
+													</div>
+
+													<div class="col-md-8">
+														<div class="smart-form">
+															<div class="row">
+																<section class="col col-md-6">
+																	<label>Nombres</label>
+																	<label class="input state-disabled">
+																		<input type="text" [(ngModel)]="empleado.nombre" disabled="disabled">
+																	</label>
+																</section>
+															</div>
+
+															<div class="row">
+																<section class="col col-md-6">
+																	<label>Apellido Paterno</label>
+																	<label class="input state-disabled">
+																		<input type="text" [(ngModel)]="empleado.apellidoPaterno" disabled="disabled">
+																	</label>
+																</section>
+
+																<section class="col col-md-6">
+																	<label>Apellido Materno</label>
+																	<label class="input state-disabled">
+																		<input type="text" [(ngModel)]="empleado.apellidoMaterno" disabled="disabled">
+																	</label>
+																</section>
+															</div>
+
+															<div class="row">
+																<section class="col col-md-6">
+																	<label>Tipo de Documento</label>
+																	<label class="input state-disabled">
+																		<input type="text" [(ngModel)]="empleado.tipoDocumentoString" disabled="disabled">
+																	</label>
+																</section>
+
+																<section class="col col-md-6">
+																	<label>Numero de Documento</label>
+																	<label class="input state-disabled">
+																		<input type="text" [(ngModel)]="empleado.numeroDocumento" disabled="disabled">
+																	</label>
+																</section>
+															</div>
+
+															<div class="row">
+																<section class="col col-md-6">
+																	<label>Genero</label>
+																	<label class="input state-disabled">
+																		<input type="text" [(ngModel)]="empleado.generoString" disabled="disabled">
+																	</label>
+																</section>
+
+																<section class="col col-md-6">
+																	<label>Estado Civil</label>
+																	<label class="input state-disabled">
+																		<input type="text" [(ngModel)]="empleado.estadoCivilString" disabled="disabled">
+																	</label>
+																</section>
+															</div>
+
+															<div class="row">
+																<section class="col col-md-6">
+																	<label>Grupo Sanguineo</label>
+																	<label class="input state-disabled">
+																		<input type="text" [(ngModel)]="empleado.grupoSangreString" disabled="disabled">
+																	</label>
+																</section>
+																<section class="col col-md-6">
+																	<label>Discapacitado</label>
+																	<label class="select state-disabled">
+																		<input type="checkbox" [(ngModel)]="empleado.discapacitado" disabled="disabled">
+																	</label>
+																</section>
+															</div>
+
+														</div>
+													</div>
+												</fieldset>
+
+												<fieldset>
+													<legend>Datos de Nacimiento</legend>
+													<div class="smart-form">
+														<div class="row">
+															<section class="col col-md-4">
+																<label>Fecha de Nacimiento</label>
+																<label class="input state-disabled">
+																	<i class="icon-append fa fa-calendar"></i>
+																	<input type="text" [(ngModel)]="empleado.fechaNacimiento" disabled="disabled"/>
+																</label>
+
+															</section>
+															<section class="col col-md-4">
+																<label>Pais</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.paisNacimientoString" disabled="disabled">
+																</label>
+
+															</section>
+															<section class="col col-md-4">
+																<label>Departamento</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.departamentoNacimientoString" disabled="disabled">
+																</label>
+															</section>
+														</div>
+
+														<div class="row">
+															<section class="col col-md-4">
+																<label>Edad</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.edad" disabled="disabled">
+																</label>
+															</section>
+															<section class="col col-md-4">
+																<label>Provincia</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.provinciaNacimientoString" disabled="disabled">
+																</label>
+
+															</section>
+															<section class="col col-md-4">
+																<label>Distrito</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.distritoNacimiento" disabled="disabled">
+																</label>
+															</section>
+														</div>
+													</div>
+												</fieldset>
+
+												<fieldset>
+													<legend>Datos en la Empresa</legend>
+													<div class="smart-form">
+														<div class="row">
+															<section class="col col-md-4">
+																<label>Codigo</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.codigo" disabled="disabled">
+																</label>
+															</section>
+														</div>
+														<div class="row">
+
+															<section class="col col-md-8">
+																<label>Email Interno</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.emailInterno" disabled="disabled">
+																</label>
+															</section>
+															<section class="col col-md-3">
+																<label>Telefono Interno</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.telefonoInterno" disabled="disabled">
+																</label>
+															</section>
+															<section class="col col-md-1">
+																<label>Anexo</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.anexoInterno" disabled="disabled">
+																</label>
+															</section>
+
+															<section class="col col-md-4">
+																<label>Centro de Costo</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.centroCostoString" disabled="disabled">
+																</label>
+															</section>
+															<section class="col col-md-4">
+																<label>Contrato de Trabajo</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.contratoTrabajoString" disabled="disabled">
+																</label>
+															</section>
+															<section class="col col-md-4">
+																<label>Tipo de Trabajador</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.tipoTrabajadorString" disabled="disabled">
+																</label>
+															</section>
+															<section class="col col-md-4">
+																<label>Regimen Horario</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.regimenHorarioString" disabled="disabled">
+																</label>
+															</section>
+															<section class="col col-md-4">
+																<label>Regimen Laboral</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.regimenLaboralString" disabled="disabled">
+																</label>
+															</section>
+															<section class="col col-md-4">
+																<label>Personal de Confianza</label>
+																<label class="select state-disabled">
+																	<input type="checkbox" [(ngModel)]="empleado.esPersonalDeConfianza" disabled="disabled">
+																</label>
+															</section>
+														</div>
+
+														<div class="row">
+
+															<section class="col col-md-4">
+																<label>Entidad Bancaria de Sueldo</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.entidadBancariaSueldoString" disabled="disabled">
+																</label>
+															</section>
+															<section class="col col-md-4">
+																<label>CTS</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.ctsString" disabled="disabled">
+																</label>
+															</section>
+															<section class="col col-md-4">
+																<label>AFP</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.afpString" disabled="disabled">
+																</label>
+															</section>
+
+														</div>
+
+														<div class="row">
+
+															<section class="col col-md-4">
+																<label>Tiene EPS?</label>
+																<label class="select state-disabled">
+																	<input type="checkbox" [(ngModel)]="empleado.tieneEps" disabled="disabled">
+																</label>
+															</section>
+															<section class="col col-md-4">
+																<label>EPS</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.epsString" disabled="disabled">
+																</label>
+															</section>
+														</div>
+
+
+													</div>
+												</fieldset>
+
+											</div>
+
+										</div>
+									</div>
+
+									<div>
+										<h4>Contacto</h4>
+
+										<div class="padding-10">
+											<div>
+												<fieldset>
+													<legend>Domicilio</legend>
+													<div class="smart-form">
+														<div class="row">
+															<section class="col col-md-8">
+																<label>Direccion</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.direccionDomicilio" disabled="disabled">
+																</label>
+															</section>
+
+															<section class="col col-md-4">
+																<label>Tipo Domicilio</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.tipoDomicilioString" disabled="disabled">
+																</label>
+															</section>
+														</div>
+														<div class="row">
+															<section class="col col-md-4">
+																<label>Pais</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.paisDomicilioString" disabled="disabled">
+																</label>
+															</section>
+
+															<section class="col col-md-4">
+																<label>Departamento</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.departamentoDomicilioString" disabled="disabled">
+																</label>
+															</section>
+														</div>
+														<div class="row">
+															<section class="col col-md-4">
+																<label>Provincia</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.provinciaDomicilioString" disabled="disabled">
+																</label>
+															</section>
+
+															<section class="col col-md-4">
+																<label>Distrito</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.distritoDomicilio"disabled="disabled">
+																</label>
+															</section>
+
+														</div>
+													</div>
+												</fieldset>
+
+												<fieldset>
+													<legend>Telefonos</legend>
+													<div class="smart-form">
+														<div class="row">
+															<section class="col col-md-4">
+																<label>Casa</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.telefonoCasa" disabled="disabled">
+																</label>
+															</section>
+															<section class="col col-md-4">
+																<label>Celular</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.telefonoCelular" disabled="disabled">
+																</label>
+															</section>
+															<section class="col col-md-4">
+																<label>Telefono Adicional</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.telefonoAdicional" disabled="disabled">
+																</label>
+															</section>
+														</div>
+													</div>
+												</fieldset>
+
+												<fieldset>
+													<legend>Informacion Adicional</legend>
+													<div class="smart-form">
+														<div class="row">
+															<section class="col col-md-8">
+																<label>Correo Electronico</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.emailPersonal" disabled="disabled">
+																</label>
+															</section>
+														</div>
+													</div>
+												</fieldset>
+
+												<fieldset>
+													<legend>Contacto de Emergencia</legend>
+													<div class="smart-form">
+														<div class="row">
+															<section class="col col-md-4">
+																<label>Relacion</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.relacionContactoEmergenciaString" disabled="disabled">
+																</label>
+															</section>
+															<section class="col col-md-8">
+																<label>Nombre Completo</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.nombreContactoEmergencia" disabled="disabled">
+																</label>
+															</section>
+
+															<section class="col col-md-4">
+																<label>Telefono</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.telefonoContactoEmergencia" disabled="disabled">
+																</label>
+															</section>
+
+															<section class="col col-md-8">
+																<label>Correo Electronico</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="empleado.emailContactoEmergencia" disabled="disabled">
+																</label>
+															</section>
+														</div>
+													</div>
+												</fieldset>
+											</div>
+										</div>
+									</div>
+									<div>
+										<h4>Documentos</h4>
+
+										<div class="padding-10">
+											<div>
+
+												<fieldset>
+
+													<kendo-grid
+															[data]="documentos"
+															[pageSize]="pageSize"
+															[skip]="skip"
+															[pageable]="true"
+															(pageChange)="pageChange($event)">
+
+														<kendo-grid-column field="nombre" title="Nombre del Documento"></kendo-grid-column>
+														<kendo-grid-column field="idDocumentoEmpleado" title="Archivo">
+															<template kendoCellTemplate let-dataItem>
+																<div class="text-center">
+																	<a href="javascript:void(0)" class="link" (click)="onViewDocument(dataItem)">
+																		<span class="fa fa-download"></span> Ver</a>
+																</div>
+
+															</template>
+														</kendo-grid-column>
+
+													</kendo-grid>
+
+												</fieldset>
+											</div>
+										</div>
+									</div>
+									<div>
+										<h4>Educacion</h4>
+
+										<div class="padding-10">
+											<div>
+
+												<fieldset>
+
+													<kendo-grid
+															[data]="educaciones"
+															[pageSize]="pageSize"
+															[skip]="skip"
+															[pageable]="true"
+															(pageChange)="pageChange($event)">
+
+														<kendo-grid-column field="nombreNivelEducacion" title="Nivel Educacion"></kendo-grid-column>
+														<kendo-grid-column field="institucion" title="Institucion"></kendo-grid-column>
+														<kendo-grid-column field="fechaInicio" title="Desde"></kendo-grid-column>
+														<kendo-grid-column field="fechaFin" title="Hasta"></kendo-grid-column>
+														<kendo-grid-column field="titulo" title="Titulo"></kendo-grid-column>
+
+													</kendo-grid>
+
+												</fieldset>
+											</div>
+										</div>
+									</div>
+									<div>
+										<h4>Experiencia Laboral</h4>
+
+										<div class="padding-10">
+											<div>
+
+												<fieldset>
+
+													<kendo-grid
+															[data]="experienciasLaborales"
+															[pageSize]="pageSize"
+															[skip]="skip"
+															[pageable]="true"
+															(pageChange)="pageChange($event)">
+
+														<kendo-grid-column field="razonSocial" title="Empresa"></kendo-grid-column>
+														<kendo-grid-column field="departamento" title="Area"></kendo-grid-column>
+														<kendo-grid-column field="cargo" title="Cargo"></kendo-grid-column>
+														<kendo-grid-column field="fechaInicio" title="Desde"></kendo-grid-column>
+														<kendo-grid-column field="fechaFin" title="Hasta"></kendo-grid-column>
+
+													</kendo-grid>
+
+												</fieldset>
+											</div>
+										</div>
+									</div>
+									<div>
+										<h4>Dependientes</h4>
+
+										<div class="padding-10">
+											<div>
+
+												<fieldset>
+
+													<kendo-grid
+															[data]="dependientes"
+															[pageSize]="pageSize"
+															[skip]="skip"
+															[pageable]="true"
+															(pageChange)="pageChange($event)">
+
+														<kendo-grid-column field="nombreRelacion" title="Relacion"></kendo-grid-column>
+														<kendo-grid-column field="nombre" title="Nombre Completo"></kendo-grid-column>
+														<kendo-grid-column field="nombreTipoDocumento" title="Tipo Documento"></kendo-grid-column>
+														<kendo-grid-column field="numeroDocumento" title="Numero Documento"></kendo-grid-column>
+														<kendo-grid-column field="fechaNacimiento" title="Fecha Nacimiento"></kendo-grid-column>
+
+													</kendo-grid>
+
+												</fieldset>
+											</div>
+										</div>
+									</div>
+									<div>
+										<h4>Equipos Entregados</h4>
+
+										<div class="padding-10">
+											<div>
+
+												<fieldset>
+
+													<kendo-grid
+															[data]="equiposEntregados"
+															[pageSize]="pageSize"
+															[skip]="skip"
+															[pageable]="true"
+															(pageChange)="pageChange($event)">
+
+														<kendo-grid-column field="nombreTipoEquipo" title="Tipo Equipo"></kendo-grid-column>
+														<kendo-grid-column field="descripcion" title="Descripcion"></kendo-grid-column>
+														<kendo-grid-column field="fechaEntrega" title="Fecha Entrega"></kendo-grid-column>
+														<kendo-grid-column field="fechaDevolucion" title="Fecha Devolucion"></kendo-grid-column>
+														<kendo-grid-column field="nombreEstado" title="Estado"></kendo-grid-column>
+
+													</kendo-grid>
+
+												</fieldset>
+											</div>
+										</div>
+									</div>
+									<div>
+										<h4>Permisos</h4>
+
+										<div class="padding-10">
+											<div>
+
+												<fieldset>
+													<legend>Permisos Permitidos</legend>
+													<kendo-grid
+															[data]="periodosEmpleados"
+															[pageSize]="pageSize"
+															[skip]="skip"
+															[pageable]="true"
+															(pageChange)="pageChange($event)">
+
+														<kendo-grid-column field="periodo" title="Periodo"></kendo-grid-column>
+														<kendo-grid-column field="fechaInicio" title="Desde"></kendo-grid-column>
+														<kendo-grid-column field="fechaFin" title="Hasta"></kendo-grid-column>
+														<kendo-grid-column field="permisosPermitidos" title="Permisos Permitidos"></kendo-grid-column>
+														<kendo-grid-column field="permisosUsados" title="Permisos Usados"></kendo-grid-column>
+
+													</kendo-grid>
+
+												</fieldset>
+
+												<fieldset>
+													<legend>Permisos Registrados</legend>
+													<div class="smart-form">
+														<div class="row">
+															<section class="col col-md-4">
+																<label>Periodo</label>
+																<label class="input">
+																	<kendo-dropdownlist [data]="periodosEmpleados" [textField]="'periodo'" [valueField]="'idPeriodoEmpleado'" [valuePrimitive]="true" [defaultItem]="defaultItem"  (selectionChange)="onChangePermisoEmpleadoPorPeriodo($event)" style="width: 100%;"></kendo-dropdownlist>
+																</label>
+															</section>
+															<section class="col col-md-2">
+																<label>Permisos Disponibles</label>
+																<label class="input state-disabled">
+																	<input type="text" disabled="disabled">
+																</label>
+															</section>
+														</div>
+													</div>
+
+
+													<kendo-grid
+															[data]="permisosEmpleados"
+															[pageSize]="pageSize"
+															[skip]="skip"
+															[pageable]="true"
+															(pageChange)="pageChange($event)">
+
+														<kendo-grid-column field="nombreMotivo" title="Motivo"></kendo-grid-column>
+														<kendo-grid-column field="razon" title="Razon"></kendo-grid-column>
+														<kendo-grid-column field="fecha" title="Fecha"></kendo-grid-column>
+														<kendo-grid-column field="horaInicio" title="Desde"></kendo-grid-column>
+														<kendo-grid-column field="horaFin" title="Hasta"></kendo-grid-column>
+														<kendo-grid-column field="horas" title="Horas"></kendo-grid-column>
+														<kendo-grid-column field="jefeInmediato" title="Jefe Inmediato"></kendo-grid-column>
+														<kendo-grid-column field="nombreEstado" title="Estado"></kendo-grid-column>
+
+													</kendo-grid>
+
+												</fieldset>
+											</div>
+										</div>
+									</div>
+									<div>
+										<h4>Vacaciones</h4>
+
+										<div class="padding-10">
+											<div>
+
+												<fieldset>
+													<div class="smart-form">
+														<div class="row">
+															<section class="col col-md-4">
+																<label>Periodo</label>
+																<label class="input">
+																	<kendo-dropdownlist [data]="periodosEmpleados" [textField]="'periodo'" [valueField]="'idPeriodoEmpleado'" [defaultItem]="defaultItem" [valuePrimitive]="true" (selectionChange)="onChangeVacacionesPorPeriodo($event)" style="width: 100%;"></kendo-dropdownlist>
+																</label>
+															</section>
+															<section class="col col-md-4">
+																<label>Dias Pendientes de Vacaciones</label>
+																<label class="input state-disabled">
+																	<input type="text" disabled="disabled">
+																</label>
+															</section>
+														</div>
+													</div>
+
+
+													<kendo-grid
+															[data]="vacaciones"
+															[pageSize]="pageSize"
+															[skip]="skip"
+															[pageable]="true"
+															(pageChange)="pageChange($event)">
+
+														<kendo-grid-column field="periodo" title="Periodo"></kendo-grid-column>
+														<kendo-grid-column field="fechaInicio" title="Desde"></kendo-grid-column>
+														<kendo-grid-column field="fechaFin" title="Hasta"></kendo-grid-column>
+														<kendo-grid-column field="jefeInmediato" title="Jefe Inmediato"></kendo-grid-column>
+														<kendo-grid-column field="nombreEstado" title="Estado"></kendo-grid-column>
+
+													</kendo-grid>
+
+												</fieldset>
+											</div>
+										</div>
+									</div>
+									<div>
+										<h4>Licencias</h4>
+
+										<div class="padding-10">
+											<div>
+												<fieldset>
+													<div class="smart-form">
+														<div class="row">
+															<section class="col col-md-4">
+																<label>Periodo</label>
+																<label class="input">
+																	<kendo-dropdownlist [data]="periodosEmpleados" [textField]="'periodo'" [valueField]="'idPeriodoEmpleado'" [valuePrimitive]="true" [defaultItem]="defaultItem"  (selectionChange)="onChangeLicenciaPorPeriodo($event)" style="width: 100%;"></kendo-dropdownlist>
+																</label>
+															</section>
+														</div>
+													</div>
+													<kendo-grid
+															[data]="licencias"
+															[pageSize]="pageSize"
+															[skip]="skip"
+															[pageable]="true"
+															(pageChange)="pageChange($event)">
+
+														<kendo-grid-column field="nombreMotivo" title="Motivo"></kendo-grid-column>
+														<kendo-grid-column field="comentario" title="Comentario"></kendo-grid-column>
+														<kendo-grid-column field="fechaInicio" title="Desde"></kendo-grid-column>
+														<kendo-grid-column field="fechaFin" title="Hasta"></kendo-grid-column>
+														<kendo-grid-column field="dias" title="Dias"></kendo-grid-column>
+
+													</kendo-grid>
+
+												</fieldset>
+
+											</div>
+										</div>
+									</div>
+									<div>
+										<h4>Historial de Trabajo</h4>
+
+										<div class="padding-10">
+											<div>
+
+												<fieldset>
+
+													<kendo-grid
+															[data]="historiasLaborales"
+															[pageSize]="pageSize"
+															[skip]="skip"
+															[pageable]="true"
+															(pageChange)="pageChange($event)">
+
+														<kendo-grid-column field="unidadNegocio" title="Unidad de Negocio"></kendo-grid-column>
+														<kendo-grid-column field="departamentoArea" title="Departamento"></kendo-grid-column>
+														<kendo-grid-column field="proyecto" title="Proyecto"></kendo-grid-column>
+														<kendo-grid-column field="cargo" title="Cargo"></kendo-grid-column>
+														<kendo-grid-column field="jefeInmediato" title="Jefe Inmediato"></kendo-grid-column>
+														<kendo-grid-column field="desdeFecha" title="Desde"></kendo-grid-column>
+														<kendo-grid-column field="hastaFecha" title="Hasta"></kendo-grid-column>
+
+													</kendo-grid>
+
+												</fieldset>
+											</div>
+										</div>
+									</div>
+									<div>
+										<h4>Horario</h4>
+
+										<div class="padding-10">
+											<div>
+												<fieldset>
+
+													<div class="smart-form">
+														<div class="row">
+															<section class="col col-md-4">
+																<label>Fecha Inicio de Vigencia</label>
+																<label class="input state-disabled">
+																	<i class="icon-append fa fa-calendar"></i>
+																	<input type="text" placeholder="Seleccionar una Fecha" [(ngModel)]="horariosEmpleado.inicioVigencia" disabled="disabled"/>
+																</label>
+															</section>
+															<section class="col col-md-4">
+																<label>Fecha Fin de Vigencia</label>
+																<label class="input state-disabled">
+																	<i class="icon-append fa fa-calendar"></i>
+																	<input type="text" placeholder="Seleccionar una Fecha" [(ngModel)]="horariosEmpleado.finVigencia" disabled="disabled"/>
+																</label>
+															</section>
+														</div>
+
+														<div class="row">
+															<section class="col col-md-4">
+																<label>Tipo Horario</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="horariosEmpleado.nombreTipoHorario" disabled="disabled">
+																</label>
+															</section>
+															<section class="col col-md-4">
+																<label>Horario Seleccionado</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="horariosEmpleado.nombreHorario" disabled="disabled">
+																</label>
+															</section>
+														</div>
+
+														<div class="row">
+															<section class="col col-md-2">
+																<label>Horas por Semana</label>
+																<label class="input state-disabled">
+																	<input type="text"  [(ngModel)]="horariosEmpleado.horasSemanalHorario"disabled="disabled">
+																</label>
+															</section>
+															<section class="col col-md-2">
+																<label>Horas Cubiertas</label>
+																<label class="input state-disabled">
+																	<input type="text" [(ngModel)]="horariosEmpleado.horasSemanal" disabled="disabled">
+																</label>
+															</section>
+														</div>
+													</div>
+
+													<kendo-grid
+															[data]="horariosEmpleado.horariosEmpleadoDia"
+															[pageSize]="pageSize"
+															[skip]="skip"
+															[pageable]="true"
+															(pageChange)="pageChange($event)">
+
+														<kendo-grid-column field="nombreDiaSemana" title="Dia"></kendo-grid-column>
+														<kendo-grid-column field="nombreDiaSemana" title="Laboral"></kendo-grid-column>
+														<kendo-grid-column field="entrada" title="Entrada"></kendo-grid-column>
+														<kendo-grid-column field="salida" title="Salida"></kendo-grid-column>
+														<kendo-grid-column field="tiempoAlmuerzo" title="Almuerzo"></kendo-grid-column>
+
+													</kendo-grid>
+
+												</fieldset>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+						<!-- end widget content -->
+					</div>
+					<!-- end widget div -->
+
+				</sa-widget>
+				<!-- end widget -->
+
+			</div>
+			<!-- WIDGET END -->
+		</div>
+
+		<!-- end row -->
+
+	</sa-widgets-grid>
+
+</div>

@@ -1,0 +1,22 @@
+{
+  "aaData": [
+     {
+      "id": "1",
+      "nombreDocumento": "Documento 1",
+      "archivo": "ruta 1"
+    }, {
+      "id": "2",
+      "nombreDocumento": "Documento 2",
+      "archivo": "ruta 2"
+    }, {
+      "id": "3",
+      "nombreDocumento": "Documento 3",
+      "archivo": "ruta 3"
+    }, {
+      "id": "4",
+      "nombreDocumento": "Documento 4",
+      "archivo": "ruta 4"
+    }
+    
+  ]
+}

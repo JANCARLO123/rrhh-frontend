@@ -1,0 +1,546 @@
+<div id="content">
+
+	<simple-notifications [options]="options"></simple-notifications>
+
+	<div class="row">
+		<sa-big-breadcrumbs [items]="['Datos Personales']" icon="group"
+							class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+	</div>
+
+
+	<sa-widgets-grid>
+		<!-- row -->
+
+		<div class="row">
+
+			<!-- NEW WIDGET START -->
+			<div class="col-12">
+
+				<!-- Widget ID (each widget will need unique ID)-->
+				<sa-widget [colorbutton]="false" [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false"
+						   [sortable]="false">
+
+
+
+					<div class="smart-form">
+						<div class="row">
+							<section class="col col-md-6">
+								<!--a (click)="onRegregarBusquedaEmpleado()" class="btn btn-default btn-lg"><i class="fa fa-arrow-circle-left"></i> Regresar</a-->
+							</section>
+
+							<section class="col col-md-6 text-right">
+								<a (click)="onActualizarDatosPersonales()" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> Guardar</a>
+							</section>
+						</div>
+					</div>
+
+					<!-- widget div-->
+					<div>
+
+						<!-- widget content -->
+						<div class="widget-body">
+
+							<div class="tabs-left">
+								<ul class="nav nav-tabs tabs-left" style="height: 850px">
+									<li [class.active]="state.tabs.tabdatosPersonales=='tab-active-1'" class="active">
+										<a (click)="state.tabs.tabdatosPersonales = 'tab-active-1'"><span
+												class="badge bg-color-blue txt-color-white">1</span> Contacto </a>
+									</li>
+									<li [class.active]="state.tabs.tabdatosPersonales=='tab-active-2'">
+										<a (click)="state.tabs.tabdatosPersonales = 'tab-active-2'"><span
+												class="badge bg-color-blueDark txt-color-white">2</span> Dependientes </a>
+									</li>
+									<li [class.active]="state.tabs.tabdatosPersonales=='tab-active-3'">
+										<a (click)="state.tabs.tabdatosPersonales = 'tab-active-3'"><span
+												class="badge bg-color-green txt-color-white">3</span> Experiencia Laboral </a>
+									</li>
+									<li [class.active]="state.tabs.tabdatosPersonales=='tab-active-4'">
+										<a (click)="state.tabs.tabdatosPersonales = 'tab-active-4'"><span
+												class="badge bg-color-greenDark txt-color-white">4</span> Permisos </a>
+									</li>
+									<li [class.active]="state.tabs.tabdatosPersonales=='tab-active-5'">
+										<a (click)="state.tabs.tabdatosPersonales = 'tab-active-5'"><span
+												class="badge bg-color-red txt-color-white">5</span> vacaciones </a>
+									</li>
+									<li [class.active]="state.tabs.tabdatosPersonales=='tab-active-6'">
+										<a (click)="state.tabs.tabdatosPersonales = 'tab-active-6'"><span
+												class="badge bg-color-purple txt-color-white">6</span> Asistencias </a>
+									</li>
+								</ul>
+
+								<tabset [ngStyle]="{style: expression}">
+									<tab [active]="state.tabs.tabdatosPersonales == 'tab-active-1'" >
+										<div>
+											<fieldset>
+												<legend>Domicilio</legend>
+												<div class="smart-form">
+													<div class="row">
+														<section class="col col-md-8">
+															<label>Direccion<span style="color: red">*</span></label>
+															<label class="input">
+																<input type="text" id="direccion" [(ngModel)]="empleado.direccionDomicilio" (keyup)="ingresaDireccion()">
+															</label>
+														</section>
+
+														<section class="col col-md-4">
+															<label>Tipo Domicilio<span style="color: red">*</span></label>
+															<label class="input">
+																<kendo-dropdownlist id="tipoDomicilio" [data]="tiposDomicilio" [defaultItem]="defaultItem" [textField]="'nombre'" [valueField]="'codigo'" [(ngModel)]="empleado.tipoDomicilio" [valuePrimitive]="true" style="width: 100%;"></kendo-dropdownlist>
+															</label>
+														</section>
+													</div>
+													<div class="row">
+														<section class="col col-md-4">
+															<label>Pais<span style="color: red">*</span></label>
+															<label class="input">
+																<kendo-dropdownlist id="paisDomicilio" [data]="paisesDomicilio" [textField]="'nombre'" [valueField]="'codigo'" [defaultItem]="defaultItemPais" [(ngModel)]="empleado.paisDomicilio" [valuePrimitive]="true" style="width: 100%;" (selectionChange)="actualizarDptoDomicilio($event)" ></kendo-dropdownlist>
+															</label>
+														</section>
+
+														<section class="col col-md-4">
+															<label>Departamento</label>
+															<label class="input">
+																<kendo-dropdownlist [data]="departamentosDomicilio" [textField]="'nombre'" [valueField]="'codigo'" [defaultItem]="defaultItemDepartamento" [(ngModel)]="empleado.departamentoDomicilio" [value]="empleado.departamentoDomicilio" [valuePrimitive]="true" style="width: 100%;" (selectionChange)="actualizarProvinciaDomicilio($event)" [disabled]="isEnableDepartamentoDomicilio"></kendo-dropdownlist>
+															</label>
+														</section>
+													</div>
+													<div class="row">
+														<section class="col col-md-4">
+															<label>Provincia</label>
+															<label class="input">
+																<kendo-dropdownlist [data]="provinciasDomicilio" [textField]="'nombre'" [valueField]="'codigo'" [defaultItem]="defaultItemDepartamento" [(ngModel)]="empleado.provinciaDomicilio" [value]="empleado.provinciaDomicilio" [valuePrimitive]="true" style="width: 100%;" (selectionChange)="actualizarDistritoDomicilio($event)" [disabled]="isEnableProvinciaDomicilio"></kendo-dropdownlist>
+															</label>
+														</section>
+
+														<section class="col col-md-4">
+															<label>Distrito</label>
+															<label class="input">
+																<kendo-dropdownlist [data]="distritosDomicilio" [textField]="'nombre'" [valueField]="'nombre'" [defaultItem]="defaultItemDepartamento" [(ngModel)]="empleado.distritoDomicilio" [value]="empleado.distritoDomicilio" [valuePrimitive]="true" style="width: 100%;" [disabled]="isEnableDistritoDomicilio"></kendo-dropdownlist>
+															</label>
+														</section>
+
+													</div>
+												</div>
+											</fieldset>
+
+											<fieldset>
+												<legend>Telefonos</legend>
+												<div class="smart-form">
+													<div class="row">
+														<section class="col col-md-4">
+															<label>Casa</label>
+															<label class="input">
+																<input type="text" [(ngModel)]="empleado.telefonoCasa">
+															</label>
+														</section>
+														<section class="col col-md-4">
+															<label>Celular<span style="color: red">*</span></label>
+															<label class="input">
+																<input type="text" id="celular" [(ngModel)]="empleado.telefonoCelular" (keyup)="ingresaCelular()">
+															</label>
+														</section>
+														<section class="col col-md-4">
+															<label>Telefono Adicional</label>
+															<label class="input">
+																<input type="text" [(ngModel)]="empleado.telefonoAdicional">
+															</label>
+														</section>
+													</div>
+												</div>
+											</fieldset>
+
+											<fieldset>
+												<legend>Informacion Adicional</legend>
+												<div class="smart-form">
+													<div class="row">
+														<section class="col col-md-8">
+															<label>Correo Electronico</label>
+															<label class="input">
+																<input type="text" [(ngModel)]="empleado.emailPersonal">
+															</label>
+														</section>
+													</div>
+												</div>
+											</fieldset>
+
+											<fieldset>
+												<legend>Contacto de Emergencia</legend>
+												<div class="smart-form">
+													<div class="row">
+														<section class="col col-md-4">
+															<label>Relacion</label>
+															<label class="input">
+																<kendo-dropdownlist [data]="relacionesContacto" [textField]="'nombre'" [valueField]="'codigo'" [defaultItem]="defaultItem" [(ngModel)]="empleado.relacionContactoEmergencia" [valuePrimitive]="true" style="width: 100%;"></kendo-dropdownlist>
+															</label>
+														</section>
+														<section class="col col-md-8">
+															<label>Nombre Completo</label>
+															<label class="input">
+																<input type="text" [(ngModel)]="empleado.nombreContactoEmergencia">
+															</label>
+														</section>
+
+														<section class="col col-md-4">
+															<label>Telefono</label>
+															<label class="input">
+																<input type="text" [(ngModel)]="empleado.telefonoContactoEmergencia">
+															</label>
+														</section>
+
+														<section class="col col-md-8">
+															<label>Correo Electronico</label>
+															<label class="input">
+																<input type="text" [(ngModel)]="empleado.emailContactoEmergencia">
+															</label>
+														</section>
+													</div>
+												</div>
+											</fieldset>
+										</div>
+									</tab>
+									<tab [active]="state.tabs.tabdatosPersonales == 'tab-active-2'">
+										<div>
+
+											<fieldset>
+
+												<div class="col-12 text-right">
+													<button (click)="agregarDependiente()" class="btn btn-primary"><i class="fa fa-plus"></i> Agregar
+													</button>
+												</div>
+
+												<kendo-grid
+														[data]="dependientes"
+														[pageSize]="pageSize"
+														[skip]="skip"
+														[pageable]="true"
+														(pageChange)="pageChange($event)">
+
+													<kendo-grid-column field="idDependiente" title=" " width="40px">
+														<template kendoCellTemplate let-dataItemDependiente>
+															<div class="text-center">
+																<a href="javascript:void(0)" class="link" (click)="onEditarDependiente(dataItemDependiente)">
+																	<span class="fa fa-pencil"></span></a>
+															</div>
+														</template>
+													</kendo-grid-column>
+
+													<kendo-grid-column field="idDependiente" title=" " width="40px">
+														<template kendoCellTemplate let-dataItemDependiente>
+															<div class="text-center">
+																<a href="javascript:void(0)" class="link" (click)="onEliminarDependiente(dataItemDependiente)">
+																	<span class="fa fa-trash-o"></span></a>
+															</div>
+
+														</template>
+													</kendo-grid-column>
+
+													<kendo-grid-column field="nombreRelacion" title="Relacion"></kendo-grid-column>
+													<kendo-grid-column field="nombre" title="Nombre Completo"></kendo-grid-column>
+													<kendo-grid-column field="nombreTipoDocumento" title="Tipo Documento"></kendo-grid-column>
+													<kendo-grid-column field="numeroDocumento" title="Numero Documento"></kendo-grid-column>
+													<kendo-grid-column field="fechaNacimiento" title="Fecha Nacimiento"></kendo-grid-column>
+
+												</kendo-grid>
+												<dependiente-dialog-form [model]="dataItemDependiente" (cancel)="onCancelarDependiente()" (save)="onGuardarDependiente($event)"></dependiente-dialog-form>
+											</fieldset>
+										</div>
+
+									</tab>
+									<tab [active]="state.tabs.tabdatosPersonales == 'tab-active-3'">
+										<div>
+
+											<fieldset>
+
+												<div class="col-12 text-right">
+													<button (click)="agregarExperienciaLaboral()" class="btn btn-primary"><i class="fa fa-plus"></i> Agregar
+													</button>
+												</div>
+
+												<kendo-grid
+														[data]="experienciasLaborales"
+														[pageSize]="pageSize"
+														[skip]="skip"
+														[pageable]="true"
+														(pageChange)="pageChange($event)">
+
+													<kendo-grid-column field="idExperienciaLaboral" title=" " width="40px">
+														<template kendoCellTemplate let-dataItemExperienciaLaboral>
+															<div class="text-center">
+																<a href="javascript:void(0)" class="link" (click)="onEditarExperienciaLaboral(dataItemExperienciaLaboral)">
+																	<span class="fa fa-pencil"></span></a>
+															</div>
+														</template>
+													</kendo-grid-column>
+
+													<kendo-grid-column field="idExperienciaLaboral" title=" " width="40px">
+														<template kendoCellTemplate let-dataItemExperienciaLaboral>
+															<div class="text-center">
+																<a href="javascript:void(0)" class="link" (click)="onEliminarExperienciaLaboral(dataItemExperienciaLaboral)">
+																	<span class="fa fa-trash-o"></span></a>
+															</div>
+
+														</template>
+													</kendo-grid-column>
+
+													<kendo-grid-column field="razonSocial" title="Empresa"></kendo-grid-column>
+													<kendo-grid-column field="departamento" title="Area"></kendo-grid-column>
+													<kendo-grid-column field="cargo" title="Cargo"></kendo-grid-column>
+													<kendo-grid-column field="fechaInicio" title="Desde"></kendo-grid-column>
+													<kendo-grid-column field="fechaFin" title="Hasta"></kendo-grid-column>
+
+												</kendo-grid>
+
+												<experiencialaboral-datos-personales-dialog-form [model]="dataItemExperienciaLaboral" (cancel)="onCancelarExperienciaLaboral()" (save)="onAgregarExperienciaLaboral($event)"></experiencialaboral-datos-personales-dialog-form>
+
+											</fieldset>
+										</div>
+
+									</tab>
+									<tab [active]="state.tabs.tabdatosPersonales == 'tab-active-4'">
+										<div>
+
+
+											<fieldset>
+												<legend>Permisos Registrados</legend>
+												<div class="smart-form">
+													<div class="row">
+														<section class="col col-md-4">
+															<label>Periodo</label>
+															<label class="input">
+																<kendo-dropdownlist [data]="periodosEmpleados" [textField]="'periodo'" [valueField]="'idPeriodoEmpleado'" [valuePrimitive]="true" [defaultItem]="defaultItemPeriodo"  (selectionChange)="onChangePermisoEmpleadoPorPeriodo($event)" style="width: 100%;"></kendo-dropdownlist>
+															</label>
+														</section>
+													</div>
+												</div>
+
+
+												<kendo-grid
+														[data]="gridViewPermisoEmpleado"
+														[pageSize]="pageSizePermisoEmpleado"
+														[skip]="skipPermisoEmpleado"
+														[pageable]="true"
+														(pageChange)="pageChangePermisoEmpleado($event)">
+
+													<kendo-grid-column field="idPermisoEmpleado" title=" " width="40px">
+														<template kendoCellTemplate let-dataItemPermisoEmpleado>
+															<div class="text-center">
+																<a href="javascript:void(0)" class="link" (click)="onEditarPermisoEmpleado(dataItemPermisoEmpleado)">
+																	<span class="fa fa-pencil"></span></a>
+															</div>
+														</template>
+													</kendo-grid-column>
+
+													<kendo-grid-column field="idPermisoEmpleado" title=" " width="40px" >
+														<template kendoCellTemplate let-dataItem>
+															<div class="text-center" *ngIf="dataItem.estado=='P'">
+																<a href="javascript:void(0)" class="link" (click)="(null)">
+																	<span class="fa fa-trash-o"></span></a>
+															</div>
+
+														</template>
+													</kendo-grid-column>
+
+													<kendo-grid-column field="nombreMotivo" title="Motivo"></kendo-grid-column>
+													<kendo-grid-column field="razon" title="Razon"></kendo-grid-column>
+													<kendo-grid-column field="fecha" title="Fecha"></kendo-grid-column>
+													<kendo-grid-column field="horaInicio" title="Desde"></kendo-grid-column>
+													<kendo-grid-column field="horaFin" title="Hasta"></kendo-grid-column>
+													<kendo-grid-column field="horas" title="Horas"></kendo-grid-column>
+													<kendo-grid-column field="jefeInmediato" title="Jefe Inmediato"></kendo-grid-column>
+													<kendo-grid-column field="nombreEstado" title="Estado"></kendo-grid-column>
+
+												</kendo-grid>
+												<permiso-dialog-form [model]="dataItemPermisoEmpleado" (cancel)="onCancelarPermisoEmpleado()" (save)="onAgregarPermisoEmpleado($event)"></permiso-dialog-form>
+											</fieldset>
+										</div>
+									</tab>
+									<tab [active]="state.tabs.tabdatosPersonales == 'tab-active-5'">
+										<div>
+
+											<fieldset>
+												<div class="smart-form">
+													<div class="row">
+														<section class="col col-md-4">
+															<label>Periodo</label>
+															<label class="input">
+																<kendo-dropdownlist [data]="periodosEmpleados" [textField]="'periodo'" [valueField]="'idPeriodoEmpleado'" [defaultItem]="defaultItemPeriodo" [valuePrimitive]="true" (selectionChange)="onChangeVacacionesPorPeriodo($event)" style="width: 100%;"></kendo-dropdownlist>
+															</label>
+														</section>
+														<section class="col col-md-4">
+															<label>Dias Pendientes de Vacaciones</label>
+															<label class="input state-disabled">
+																<input type="text" disabled="disabled">
+															</label>
+														</section>
+													</div>
+												</div>
+
+
+												<kendo-grid
+														[data]="gridViewVacaciones"
+														[pageSize]="pageSizeVacaciones"
+														[skip]="skipVacaciones"
+														[pageable]="true"
+														(pageChange)="pageChangeVacaciones($event)">
+
+													<kendo-grid-column field="idVacacion" title=" " width="40px">
+														<template kendoCellTemplate let-dataItemVacacion>
+															<div class="text-center">
+																<a href="javascript:void(0)" class="link" (click)="onEditarVacaciones(dataItemVacacion)">
+																	<span class="fa fa-pencil"></span></a>
+															</div>
+														</template>
+													</kendo-grid-column>
+
+													<kendo-grid-column field="idVacacion" title=" " width="40px" >
+														<template kendoCellTemplate let-dataItem>
+															<div class="text-center" *ngIf="dataItem.estado=='P'">
+																<a href="javascript:void(0)" class="link" (click)="(null)">
+																	<span class="fa fa-trash-o"></span></a>
+															</div>
+
+														</template>
+													</kendo-grid-column>
+
+													<kendo-grid-column field="periodo" title="Periodo"></kendo-grid-column>
+													<kendo-grid-column field="fechaInicio" title="Desde"></kendo-grid-column>
+													<kendo-grid-column field="fechaFin" title="Hasta"></kendo-grid-column>
+													<kendo-grid-column field="jefeInmediato" title="Jefe Inmediato"></kendo-grid-column>
+													<kendo-grid-column field="nombreEstado" title="Estado"></kendo-grid-column>
+
+												</kendo-grid>
+
+												<vacacion-dialog-form [model]="dataItemVacacion" (cancel)="onCancelarVacaciones()" (save)="onAgregarVacaciones($event)"></vacacion-dialog-form>
+
+											</fieldset>
+										</div>
+									</tab>
+									<tab [active]="state.tabs.tabdatosPersonales == 'tab-active-6'">
+										<div>
+
+											<fieldset>
+												<legend>Marcaciones</legend>
+												<div class="smart-form">
+													<div class="row">
+														<section class="col col-md-3">
+															<label>Desde</label>
+															<label class="input">
+																<i class="icon-append fa fa-calendar"></i>
+																<input type="text" placeholder="Seleccionar una Fecha" (change)="onChangeDateDesde($event)"
+																	   saUiDatepicker date-format="dd/MM/yy" />
+															</label>
+														</section>
+														<section class="col col-md-3">
+															<label>Hasta</label>
+															<label class="input">
+																<i class="icon-append fa fa-calendar"></i>
+																<input type="text" placeholder="Seleccionar una Fecha" (change)="onChangeDateHasta($event)"
+																	   saUiDatepicker date-format="dd/MM/yy" />
+															</label>
+														</section>
+													</div>
+												</div>
+
+
+												<kendo-grid
+														[data]="marcaciones"
+														[pageSize]="pageSize"
+														[skip]="skip"
+														[pageable]="true"
+														(pageChange)="pageChange($event)">
+
+													<kendo-grid-column field="idMarcacion" title=" " width="40px">
+														<template kendoCellTemplate let-dataItemMarcacion>
+															<div class="text-center">
+																<a href="javascript:void(0)" class="link" (click)="(null)">
+																	<span class="fa fa-comment-o"></span></a>
+															</div>
+														</template>
+													</kendo-grid-column>
+
+													<kendo-grid-column field="idMarcacion" title=" " width="40px" >
+														<template kendoCellTemplate let-dataItemMarcacion>
+															<!--div class="text-center">
+																<a href="javascript:void(0)" class="link" (click)="(null)">
+																	<span class="fa fa-trash-o"></span></a>
+															</div-->
+
+														</template>
+													</kendo-grid-column>
+
+													<kendo-grid-column field="fecha" title="Fecha"></kendo-grid-column>
+													<kendo-grid-column field="horaIngreso" title="Hora Ingreso"></kendo-grid-column>
+													<kendo-grid-column field="horaInicioAlmuerzo" title="Hora Inicio Almuerzo"></kendo-grid-column>
+													<kendo-grid-column field="horaFinAlmuerzo" title="Hora Fin Almuerzo"></kendo-grid-column>
+													<kendo-grid-column field="horaSalida" title="Hora Salida"></kendo-grid-column>
+													<kendo-grid-column field="solicitudCambio" title="Solicitud de Cambio"></kendo-grid-column>
+													<kendo-grid-column field="tardanza" title="Tardanza"></kendo-grid-column>
+
+												</kendo-grid>
+												<marcacion-dialog-form [model]="dataItemMarcacion" (cancel)="onCancelaSolicitudCambio()" (save)="onAgregarSolicitudCambio($event)"></marcacion-dialog-form>
+											</fieldset>
+
+											<fieldset>
+												<legend>Horario</legend>
+
+												<kendo-grid
+														[data]="horariosEmpleado.horariosEmpleadoDia"
+														[pageSize]="pageSize"
+														[skip]="skip"
+														[pageable]="true"
+														(pageChange)="pageChange($event)">
+
+													<kendo-grid-column field="nombreDiaSemana" title="Dia"></kendo-grid-column>
+													<kendo-grid-column field="nombreDiaSemana" title="Laboral"></kendo-grid-column>
+													<kendo-grid-column field="entrada" title="Entrada"></kendo-grid-column>
+													<kendo-grid-column field="salida" title="Salida"></kendo-grid-column>
+													<kendo-grid-column field="tiempoAlmuerzo" title="Almuerzo"></kendo-grid-column>
+
+												</kendo-grid>
+											</fieldset>
+
+										</div>
+									</tab>
+								</tabset>
+							</div>
+
+						</div>
+						<!-- end widget content -->
+					</div>
+					<!-- end widget div -->
+					<div id="dialog-message-datos-personales" [saJquiDialog]="{
+								autoOpen: false,
+								modal: true,
+								resizable: false
+							  }">
+						<!-- dialog header // removing on compile-->
+						<div data-dialog-title="">
+							<div class="widget-header"><h4><i class="icon-ok"></i> Informacion</h4></div>
+						</div>
+
+
+						<p>
+							{{mensaje}}
+						</p>
+
+						<div class="hr hr-12 hr-double"></div>
+
+						<div data-dialog-buttons="">
+							<button class="btn btn-primary" (click)="cerrarDialog()"><i class="fa fa-check"></i>&nbsp;OK</button>
+						</div>
+
+					</div>
+
+				</sa-widget>
+				<!-- end widget -->
+
+			</div>
+			<!-- WIDGET END -->
+		</div>
+
+		<!-- end row -->
+
+
+	</sa-widgets-grid>
+
+</div>

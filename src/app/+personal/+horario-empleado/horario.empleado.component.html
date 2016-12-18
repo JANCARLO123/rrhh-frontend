@@ -1,0 +1,100 @@
+<div id="content">
+	<div class="row">
+		<sa-big-breadcrumbs [items]="['Historial de Horarios']" icon="group"
+							class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+	</div>
+
+
+	<sa-widgets-grid>
+		<!-- row -->
+
+		<div class="row">
+
+			<h2 class="row-seperator-header">Historial de Horarios</h2>
+
+			<!-- NEW WIDGET START -->
+			<div class="col-12">
+
+				<!-- Widget ID (each widget will need unique ID)-->
+				<sa-widget [colorbutton]="false" [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false"
+						   [sortable]="false">
+
+					<div class="smart-form">
+						<div class="row">
+							<section class="col col-md-6">
+								<a (click)="onRegresarVerEmpleado()" class="btn btn-default btn-lg"><i class="fa fa-arrow-circle-left"></i> Regresar</a>
+							</section>
+
+						</div>
+					</div>
+
+					<!-- widget div-->
+					<div>
+
+						<!-- widget content -->
+						<div class="widget-body">
+
+							<div class="well well-sm well-light">
+
+								<div class="padding-10">
+									<div>
+										<fieldset>
+											<div class="col-12 text-right">
+												<button (click)="onNuevoHorarioEmpleado()" class="btn btn-primary"><i class="fa fa-plus"></i>
+													Agregar Nuevo Horario
+												</button>
+											</div>
+										</fieldset>
+									</div>
+
+									<div>
+										<fieldset>
+
+
+											<kendo-grid [data]="horariosEmpleado" >
+
+												<kendo-grid-column field="idHorarioEmpleado" title=" " [width]="40">
+													<template kendoCellTemplate let-dataItem>
+														<div class="text-center">
+															<a href="javascript:void(0)" class="link" (click)="onEditarHorarioEmpleado(dataItem)">
+																<span class="fa fa-pencil"></span></a>
+														</div>
+													</template>
+												</kendo-grid-column>
+
+												<kendo-grid-column field="nombreTipoHorario" title="Tipo Horario" [width]="150"></kendo-grid-column>
+												<kendo-grid-column field="nombreHorario" title="Horario" [width]="200"></kendo-grid-column>
+												<kendo-grid-column field="horasSemanal" title="Horas Por Semana" [width]="100"></kendo-grid-column>
+												<kendo-grid-column field="horasSemanal" title="Dias a la Semana" [width]="100"></kendo-grid-column>
+												<kendo-grid-column field="inicioVigencia" title="Desde" [width]="100"></kendo-grid-column>
+												<kendo-grid-column field="finVigencia" title="Hasta" [width]="100"></kendo-grid-column>
+											</kendo-grid>
+										</fieldset>
+
+									</div>
+
+								</div>
+
+							</div>
+
+							<!-- Dialog-->
+							<div id="dialog-message" title="Mensaje">
+								<!-- dialog header // removing on compile-->
+								<p>
+									{{mensaje}}
+								</p>
+
+							</div>
+							<!-- End dialog -->
+
+						</div>
+					</div>
+				</sa-widget>
+			</div>
+			<!-- WIDGET END -->
+		</div>
+
+
+	</sa-widgets-grid>
+
+</div>

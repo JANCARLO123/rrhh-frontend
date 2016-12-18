@@ -1,0 +1,179 @@
+<div id="content">
+
+  <simple-notifications [options]="options"></simple-notifications>
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['Cargo',empleado.codigo+' - '+empleado.nombre+' '+empleado.apellidoPaterno]" icon="group"
+                        class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>
+ <sa-widgets-grid>
+  <div class="row">
+
+    <div class="col-12">
+
+    <sa-widget [colorbutton]="false" [editbutton]="false" [fullscreenbutton]="false" [custombutton]="false"
+                   [sortable]="false">
+
+        <!-- body div-->
+        <div>
+
+            <!-- widget content -->
+            <div class="widget-body">
+
+                <div class="well well-sm well-light">
+
+                    <div class="padding-10">
+
+                        <div>
+                            <fieldset>
+                                <legend>Datos</legend>
+
+                                <div class="smart-form">
+                                    <div class="row">
+                                        <section class="col col-3">
+                                            <label>Fecha Inicio<span style="color: red">*</span></label>
+                                            <label class="input"> <i class="icon-append fa fa-calendar"></i>
+                                                <input type="text" name="desdeFecha" id="desdeFecha" [(ngModel)]="historiaLaboralDto.desdeFecha" (change)="onChangeIniDate($event)"
+                                                       saUiDatepicker date-format="dd/MM/yyyy" />
+                                            </label>
+                                        </section>
+
+                                        <section class="col col-3">
+                                            <label>Fecha Fin</label>
+                                            <label class="input">
+                                                <i class="icon-append fa fa-calendar"></i>
+                                                <input type="text" name="request" [(ngModel)]="historiaLaboralDto.hastaFecha" (change)="onChangeFinDate($event)"
+                                                       saUiDatepicker date-format="dd/MM/yyyy"/>
+                                            </label>
+                                        </section>
+                                    </div>
+
+                                    <div class="row">
+                                        <section class="col col-3">
+                                            <label>Unidad de Negocio<span style="color: red">*</span></label>
+                                            <label class="input">
+                                                <kendo-dropdownlist
+                                                        [data]="undnegocios" id="unidadNegocio" name="unidadNegocio"
+                                                        [textField]="'nombre'"
+                                                        [valueField]="'idUnidadDeNegocio'" [defaultItem]="defaultItem"
+                                                        [valuePrimitive] = "true" class="required"
+                                                        (selectionChange)="actualizarDpto($event)" style="width: 100%;" [(ngModel)]="historiaLaboralDto.unidadNegocio"
+                                                >
+                                                </kendo-dropdownlist>
+                                            </label>
+                                        </section>
+
+                                        <section class="col col-3">
+                                            <label>Departamento</label>
+                                            <label class="input">
+                                                <kendo-dropdownlist
+                                                        [data]="departamentos"
+                                                        [textField]="'nombre'"
+                                                        [valueField]="'idDepartamentoArea'"
+                                                        [valuePrimitive] = "true"
+                                                        (selectionChange)="actualizarProyecto($event)" style="width: 100%;" [(ngModel)]="historiaLaboralDto.departamentoArea"
+                                                >
+                                                </kendo-dropdownlist>
+                                            </label>
+                                        </section>
+
+                                        <section class="col col-3">
+                                            <label>Proyecto</label>
+                                            <label class="input">
+                                                <kendo-dropdownlist
+                                                        [data]="proyectos"
+                                                        [textField]="'nombre'"
+                                                        [valueField]="'idProyecto'"
+                                                        [valuePrimitive] = "true"
+                                                        style="width: 100%;" [(ngModel)]="historiaLaboralDto.idProyecto"
+                                                >
+                                                </kendo-dropdownlist>
+                                             </label>
+                                        </section>
+                                    </div>
+
+                                    <div class="row">
+                                        <section class="col col-3">
+                                            <label>Cargo<span style="color: red">*</span></label>
+                                            <label class="input">
+                                                <kendo-dropdownlist
+                                                        [data]="cargos" id="idCargo" name="idCargo"
+                                                        [textField]="'nombre'"
+                                                        [valuePrimitive] = "true"
+                                                        [valueField]="'idCargo'" style="width: 100%;" [(ngModel)]="historiaLaboralDto.idCargo"
+                                                >
+                                                </kendo-dropdownlist>
+                                            </label>
+                                        </section>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <section class="col col-md-12">
+                                            <label class="label">Descripcion</label>
+                                            <label class="textarea">
+                                                <textarea rows="3" class="custom-scroll" [(ngModel)]="historiaLaboralDto.descripcion"></textarea>
+                                            </label>
+
+                                        </section>
+                                    </div>
+
+                                </div>
+                            </fieldset>
+
+                        </div>
+
+
+                        <div>
+                            <fieldset>
+                                <legend>Salario</legend>
+
+                                <div class="smart-form">
+                                    <div class="row">
+                                        <section class="col col-3">
+                                            <label>Monto</label>
+                                            <label class="input">
+                                                <input type="text" name="name" placeholder="0.00" [(ngModel)]="historiaLaboralDto.salario">
+                                            </label>
+                                        </section>
+                                        <section class="col col-3">
+                                            <label>Moneda<span style="color: red">*</span></label>
+                                            <label class="input">
+                                                <kendo-dropdownlist
+                                                        [data]="monedas" id="idMoneda" name="idMoneda"
+                                                        [textField]="'nombre'"
+                                                        [valuePrimitive] = "true"
+                                                        [value]="selectedValue"
+                                                        [valueField]="'idMoneda'" style="width: 100%;" [(ngModel)]="historiaLaboralDto.idMoneda"
+                                                >
+                                                </kendo-dropdownlist>
+                                            </label>
+                                        </section>
+                                    </div>
+                                </div>
+                             </fieldset>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+        <div class="smart-form">
+            <div class="row">
+                <section class="col col-md-6">
+                    <a (click)="goBack()" class="btn btn-default btn-lg"><i class="fa fa-arrow-circle-left"></i> Regresar</a>
+                </section>
+
+                <section class="col col-md-6 text-right">
+                    <a (click)="onRegistrarCargo2()" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> Guardar</a>
+                </section>
+            </div>
+        </div>
+          <!-- end widget div -->
+        </sa-widget>
+        <!-- end widget -->
+    </div>
+  </div>
+ </sa-widgets-grid>
+</div>
